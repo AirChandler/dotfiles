@@ -108,3 +108,10 @@ $ExecutionContext.SessionState.InvokeCommand.LocationChangedAction += {
 }
 
 #endregion
+
+#region gpg
+if (Get-Command -ErrorAction SilentlyContinue gpgconf) {
+    $env:GPG_TTY = tty
+    gpgconf --launch gpg-agent
+}
+#endregion
