@@ -1,13 +1,8 @@
 #region UX config
 
-$hasOhMyPosh = Import-Module oh-my-posh -MinimumVersion 3.0 -PassThru -ErrorAction SilentlyContinue
-if ($hasOhMyPosh) {
-    $themePath = '~/.config/powershell/PoshThemes/TylerLeonhardt.json'
-    if (Test-Path $themePath) {
-        Set-PoshPrompt -Theme $themePath
-    } else {
-        Set-PoshPrompt -Theme material
-    }
+$themePath = '~/.config/powershell/PoshThemes/TylerLeonhardt.json'
+if (Test-Path $themePath) {
+    oh-my-posh init pwsh --config $themePath | Invoke-Expression
 }
 
 # We still need posh-git for git completers
@@ -30,17 +25,6 @@ if (Get-Module PSReadLine) {
     Set-PSReadLineOption -HistorySearchCursorMovesToEnd
     Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
     Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
-}
-
-#endregion
-
-#region Helper functions
-
-# Allows idweb to be open from mac
-function idweb {
-    kdestroy --all
-    kinit --keychain tyleonha@REDMOND.CORP.MICROSOFT.COM
-    open https://idweb -a Safari.app
 }
 
 #endregion
